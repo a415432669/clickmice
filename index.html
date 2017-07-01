@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	</head>
+	<body>
+		<div id="page1">
+			<div id="top">
+				<div id="time">
+					<img src="img/countdown_time.png"/>
+					<span id="timeNum">
+						<span id="tNum">10</span>s
+					</span>
+				</div>
+				<div id="share">
+					<img src="img/countdown_share.png"/>
+				</div>
+				<div id="startGame">
+					<img id="startGameBtn" src="img/game_btn_star.png"/>
+				</div>
+				<div id="chance">
+					还有<span>5</span>次机会
+				</div>
+			</div>
+			
+			
+		</div>
+		
+		
+		
+		
+		
+		<script type="text/javascript">
+			var ds = {
+				id :0,
+				imgUrl:"img/vendor_people00.png",
+				state:""
+			}
+			/*for in循环，循环对象*/
+			/*var obj = {};
+			for( x in ds){
+				console.log(x);
+				obj[x] = ds[x];
+			}
+			console.log(obj);*/
+			var score = 0;
+			var chanceNum = 5;
+			
+			var arrDs=[];
+			console.log(arrDs);
+			for(var i=0;i<12;i++){
+				var temp = new Object
+				for( x in ds){
+					temp[x] = ds[x]
+				}
+				arrDs.push(temp);
+				arrDs[i].id = i;
+				
+				
+			}
+			console.log(arrDs);
+			/*创建id为main的这个DIV*/
+			var main = document.createElement("div");
+			main.id = "main";
+			var str = ""
+			/*循环main里面的字符串*/
+			for(var i=0;i<arrDs.length;i++){
+				str= str+'<div class="ds" id="ds'+ i +'">'+
+					'<img src="img/vendor_people00.png" id="img'+ i +'"/>'+
+				'</div>';
+			}
+			//将str字符串里面的内容，给到main这个元素里
+			main.innerHTML = str;
+			//找到文档中的ID为PAGE1这个元素
+			var page1 = document.getElementById("page1");
+			console.log(page1);
+			//将main这个元素加载进PAGE1这个元素里
+			page1.appendChild(main);
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			//获取时间数字的元素对象
+			var tNum = document.getElementById("tNum");
+			//设置游戏时间
+			var gameTime = 10;
+			//获取开始按钮元素
+			var  start=document.getElementById("startGame");
+			//获取开始按钮图片元素
+			var startBtn = document.getElementById("startGameBtn")
+			//声明随机数这个变量
+			var randomNum = 0;
+			
+			
+			
+			
+			//游戏开始的函数
+			var startGame = function(){
+				start.style.display = "none";
+			}
+			
+			//游戏结束时执行的内容
+			var endGame = function(){
+				
+				//如果已经成功生成过结束的这个DIV，那么不在生成
+				/*if(document.getElementById("end")){
+					var end = document.getElementById("end");
+					end.style.display = "block";
+				}else{*/
+					var end = document.createElement("div");
+					end.id = "end";
+					var str = "<div>"+
+					"<img id='scoreBg' src='img/pop_score_bg.png' />"+
+					"<img id='scoreClose' src = 'img/pop_box_close.png'/>"+
+					"<h3>《本局成绩》</h3>"+
+					"<h1>"+score+"</h1>"+
+					"</div>";
+					end.innerHTML = str;
+					document.body.appendChild(end);
+				/*}*/
+				
+				//关闭结束游戏的模态框的这个事件，重新初始化游戏
+				var close = document.getElementById("scoreClose");
+				close.onclick = function(){
+					/*//模态框消失
+					end.style.display = "none";
+					//开始按钮显示
+					start.style.display = "block";
+					//机会变量、得分变量、游戏时间变回原始状态
+					chanceNum = 5;
+					document.querySelector("#chance span").innerHTML = chanceNum;
+					score = 0;
+					gameTime = 10;
+					tNum.innerHTML = gameTime;*/
+					location.reload();//重新刷新当前页面
+					
+				}
+			
+			}
+			
+			//间隔函数执行的时候，重置老鼠的图片
+			var resetMice = function(){
+				for(var i = 0; i<12; i++){
+					var img = document.querySelector("#ds"+i+" img");
+					img.src = "img/vendor_people00.png";
+				}
+			}
+			
+			
+			//触发游戏开始的事件，点击开始图片按钮，执行函数里面的内容
+			startBtn.onclick = function(){
+				startGame();
+				var interval = setInterval(function(){
+					resetMice();
+					tNum.innerHTML = gameTime;
+					if(gameTime == 0){
+						clearInterval(interval);
+						endGame();
+					}
+					gameTime--;
+					/*math.random返回1个从0到1的随机数
+					 	parseInt向下取整数
+					 * */
+					randomNum = parseInt(Math.random()*12)
+					
+					
+					//document.querySelector是选择元素对象的一个方法
+					//document.querySelector("#ID img")
+					var img = document.querySelector("#ds"+randomNum+" img");
+					img.src = "img/vendor_hole01.png";
+					
+					//游戏时间，监听打击老鼠的这个事件
+					main.onclick = function(event){
+						console.log(event);
+						//event.target获得的就是所点击的老鼠的图片对象
+						if(event.target.id == ("img"+randomNum)){
+							score += 100;
+							event.target.src = "img/vendor_hole02.png";
+						}else{
+							chanceNum--;
+							document.querySelector("#chance span").innerHTML = chanceNum;
+							if(chanceNum == 0){
+								clearInterval(interval);
+								endGame();
+							}
+						}
+						
+					}
+				},1000)
+				
+				
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			//startGame();
+			
+			
+		</script>
+	</body>
+</html>

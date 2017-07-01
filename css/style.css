@@ -1,0 +1,113 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html,body{
+	width: 100%;
+	height: 100%;
+}
+
+#page1{
+	width: 100%;
+	height: 100%;
+	/*设置背景图片*/
+	background: url(../img/game_youxi_bg.jpg);
+	/*设置背景图片的大小*/
+	background-size: 100% 100%;
+}
+#top{
+	width: 100%;
+	height: 30%;
+	position: relative;
+}
+#top #time img{
+	width: 100px;
+	position: absolute;
+	top: 10px;
+	left: 20px;
+	
+}
+#top #time #timeNum{
+	font-size: 16px;
+	color: orangered;
+	position: absolute;
+	top: 28px;
+	left: 72px;
+}
+#share img{
+	width: 50px;
+	position: absolute;
+	right: 10px;
+	top: 0px;
+}
+#startGame img{
+	position: absolute;
+	width: 200px;
+	left: 50%;
+	margin-left: -100px;
+	top: 75px;
+}
+#chance{
+	position: absolute;
+	width: 100%;
+	text-align: center;
+	top: 150px;
+}
+#chance span{
+	margin-left: 10px;
+	margin-right: 10px;
+	color: orange;
+	font-size: 25px;
+	font-weight:bold;
+}
+#main{
+	width: 90%;
+	margin: 0 auto;
+}
+
+#main .ds{
+	width: 33%;
+	float: left;
+}
+#main .ds img{
+	width: 100%;
+}
+
+#end{
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.6);
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+#end #scoreBg{
+	width: 300px;
+	position: absolute;
+	top: 170px;
+	left: 50%;
+	margin-left: -150px;
+}
+#end #scoreClose{
+	width: 40px;
+	position: absolute;
+	top: 110px;
+	right: 16%;
+}
+#end h3{
+	width: 100%;
+	position: absolute;
+	top: 250px;
+	text-align: center;
+	color: #fff;
+}
+#end h1{
+	width: 100%;
+	position: absolute;
+	top: 290px;
+	text-align: center;
+	color: #fff;
+}
